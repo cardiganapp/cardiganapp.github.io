@@ -26,8 +26,8 @@
   height: 600px;
   background-color: #ffffff;
   border: 1px solid lightgray;
-  position: relative;
-  float: left;
+  position: absolute;
+  float: right;
 }
 
 </style>
@@ -78,7 +78,7 @@
                 </div>
                 <div id="event-network"></div>
                 <div id="event-dashboard">
-                <p id="time" class="hero-paragraph is-revealing">Time:</p>
+                   <h4 class="feature-title h3-mobile">Time:</h4>
                 </div>
             </section>
 
@@ -306,7 +306,7 @@
       loopCounter = 0;
       delayThenIncrement();
       var time = document.getElementById('time');
-      time.innerHtml = "Time: 5:05";
+      time.innerHTML = "Time: 5:05";
 
     </script>
 
