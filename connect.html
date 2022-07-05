@@ -127,14 +127,9 @@
         </footer>
     </div>
     <script src="dist/js/main.min.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
     <script>
       function getData() {
         var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT9ZBHxenn2SJ9JGbesfyqCkZWUvFE6RavZuNdd3KY7hn3yN_G8C5b-HhEr_wZ-1GscQbsXM8htbXax/pubhtml";
-        Tabletop.init( { key: url,
-           callback: showInfo,
-           simpleSheet: true } );
-      }
 
       function showInfo(data) {
         // data comes through as a simple array since simpleSheet is turned on
