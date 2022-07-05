@@ -12,22 +12,29 @@
 
 <style type="text/css">
 
-#event-network {
-  width: 600;
+p {
+  color: black;
+}
+#event-container {
+  width: 80%;
   height: 600px;
   background-color: #ffffff;
   border: 1px solid lightgray;
   position: relative;
-  float: left;
+}
+
+#event-network {
+  width: 66%;
+  height: 100%;
+  position: absolute;
+  left: 0;
 }
 
 #event-dashboard {
-  width: 600;
-  height: 600px;
-  background-color: #ffffff;
-  border: 1px solid lightgray;
+  width: 33%;
   position: absolute;
-  float: right;
+  text-align: left;
+  right: 0;
 }
 
 </style>
@@ -76,10 +83,14 @@
 
                     </div>
                 </div>
-                <div id="event-network"></div>
-                <div id="event-dashboard">
-                   <h4 class="feature-title h3-mobile">Time:</h4>
+                <div class="container" id="event-container">
+                  <div class="hero-inner" id="event-network"></div>
+                  <div class="hero-inner" id="event-dashboard">
+                    <p id="main-text">Time: 5:00 P.M.</p>
+                    </p>
+                  </div>
                 </div>
+              </div>
             </section>
 
         </main>
@@ -156,20 +167,31 @@
       var network; 
       var container;
       var options, data;
+      var connections;
+      var maxConnections;
       var nodeCounter;
       var loopCounter;
+      var timeHours;
+      var timeMinutes;
+      var salesConnections;
+      var providerConnections;
+      var techConnections;
 
       function delay(time) {
         return new Promise(resolve => setTimeout(resolve, time));
       }
-
-
 
       function initializeNetwork() {
         var container = document.getElementById('event-network');
 
         nodes = new vis.DataSet();
         edges = new vis.DataSet();
+
+        maxConnections = 10;
+        connections = [];
+        for(let i=0; i<maxConnections; i++) {
+          connections[i] = 0;
+        }
 
         nodeCounter = 0;
         for (let i = 0; i < 70; i++) {
@@ -181,6 +203,10 @@
         for (let i = 0; i < 10; i++) {
           addNode(3);
         }
+
+        salesConnections = 0;
+        providerConnections = 0;
+        techConnections = 0;
 
         data = {nodes: nodes, edges: edges};
         var options = {
@@ -228,24 +254,55 @@
         nodeCounter = nodeCounter + 1;
       }
 
-      function addEdge() {
-        var from = getRandomInt(nodeCounter-1)
-        var to = getRandomInt(nodeCounter-1)
-        if(from != to) {
-          edges.add({"from": from, "label": 1, "to": to, "weight": 1});
-        }
-      }
-
       function addEdgeFrom(from) {
         var to = getRandomInt(nodeCounter-1)
         if(from != to) {
           edges.add({"from": from, "label": 1, "to": to, "weight": 1});
+
+          var fromNode = nodes.get(from);
+          if(fromNode.group == 3) {
+            salesConnections = salesConnections+1;
+          }
+          else if(fromNode.group == 2) {
+            providerConnections = providerConnections+1;
+          }
+          else if(fromNode.group == 1) {
+            techConnections = techConnections+1;
+          }
         }
       }
 
+      function updateDisplay() {
+        var timeMinutePrefix = ""
+        if(timeMinutes < 10) {
+          timeMinutePrefix = "0"
+        }
+
+        var totalConnections = 0;
+        for(let i=0; i<maxConnections; i++) {
+          totalConnections = totalConnections + (i+1) * connections[i];
+        }
+        var connectionsOver4 = 0;
+        for(let i=3; i<maxConnections; i++) {
+          connectionsOver4 = connectionsOver4 + connections[i];
+        }
+
+        var field = document.getElementById('main-text');
+        field.innerHTML = "Time: "+timeHours+":"+timeMinutePrefix+timeMinutes+
+                                                    " P.M.<br>New Connections: "+totalConnections+"<br>    1x1: "+connections[0]+"<br>    1x2: "+connections[1]+"<br>    1x3: "+connections[2]+"<br>    1x4+: "+connectionsOver4+"<br><span style=\"color: #ff0000\">Sales/marketing: </span>"+salesConnections+"<br><span style=\"color: #ffff00\">Service providers: </span>"+providerConnections+"<br><span style=\"color: #0000ff\">Technical: </span>"+techConnections;
+
+
+      }
+
       function incrementNetwork() {
-        if(loopCounter > 30) {
+        if(loopCounter > 11) {
           return;
+        }
+
+        timeMinutes = timeMinutes + 5;
+        if(timeMinutes > 59) {
+          timeMinutes = 0;
+          timeHours = timeHours + 1;
         }
         loopCounter = loopCounter + 1;
         for(let nodeIndex = 0; nodeIndex < nodeCounter; nodeIndex++) {
@@ -264,49 +321,29 @@
           if(getRandomInt(100) < prob) {
             var numEdges = getRandomInt(maxNumEdges);
             var from = getRandomInt(nodeCounter-1)
+            connections[numEdges-1] = connections[numEdges-1] + 1;
             for (let i = 0; i < numEdges; i++) {
                 addEdgeFrom(nodeIndex);
             }
           }
         }
+        updateDisplay();
         delayThenIncrement();
-      }
-
-      function incrementNetworkOriginal() {
-        loopCounter = loopCounter + 1;
-        if(loopCounter < 100) {
-          if(getRandomInt(10) > 7) {
-            addNode(1);
-          }
-          else {
-            if(getRandomInt(10) > 3) {
-              addEdge();
-            }
-            else {
-              var numEdges = getRandomInt(4);
-              var from = getRandomInt(nodeCounter-1)
-              for (let i = 0; i < numEdges; i++) {
-                addEdgeFrom(from)
-              }
-            }
-          }
-
-          delayThenIncrement();
-        }
       }
 
       function delayThenIncrement() {
         console.log('delayThenIncrement()')
-        delay(1000).then(() => incrementNetwork());
+        delay(2000).then(() => incrementNetwork());
       }
+
+      timeHours = 5;
+      timeMinutes = 0;
 
       initializeNetwork();
 
 
       loopCounter = 0;
       delayThenIncrement();
-      var time = document.getElementById('time');
-      time.innerHTML = "Time: 5:05";
 
     </script>
 
