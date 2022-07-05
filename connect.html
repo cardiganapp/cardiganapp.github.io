@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Evelyn Template</title>
+    <title>Cardigan</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i|PT+Serif:700" rel="stylesheet">
     <link rel="stylesheet" href="dist/css/style.css">
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
@@ -46,8 +46,8 @@
             <section class="hero text-light text-center">
                 <div class="container-sm">
                     <div class="hero-inner">
-                        <h1 class="hero-title h2-mobile mt-0 is-revealing">Connect to Mark G</h1>
-                        <p class="hero-paragraph is-revealing">Cardigan will connect you and only share your data with Mark.</p>
+                        <h1 id="connect-label" class="hero-title h2-mobile mt-0 is-revealing">Connect to Mark G</h1>
+                        <p id="connect-subtext" class="hero-paragraph is-revealing">Cardigan will only share your data with Mark.</p>
                         <form>
                           <label for="fname">First name</label><br>
                           <input type="text" id="fname" name="fname"><br>
@@ -70,7 +70,7 @@
                     <div class="brand footer-brand">
                         <a href="#">
                             <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                                <title>Evelyn</title>
+                                <title>Cardigan</title>
                                 <defs>
                                     <radialGradient cy="0%" fx="50%" fy="0%" r="100%" id="logo-gradient-footer">
                                         <stop stop-color="#00A2B8" offset="0%"/>
@@ -127,5 +127,34 @@
         </footer>
     </div>
     <script src="dist/js/main.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+    <script>
+      function getData() {
+        var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT9ZBHxenn2SJ9JGbesfyqCkZWUvFE6RavZuNdd3KY7hn3yN_G8C5b-HhEr_wZ-1GscQbsXM8htbXax/pubhtml";
+        Tabletop.init( { key: url,
+           callback: showInfo,
+           simpleSheet: true } );
+      }
+
+      function showInfo(data) {
+        // data comes through as a simple array since simpleSheet is turned on
+        alert("Successfully processed " + data.length + " rows!")
+        console.log(data[0].linkID);
+        console.log(data);
+      }
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const name = urlParams.get('name')
+      if(name != null) {
+        var field = document.getElementById('connect-label');
+        field.innerHTML = "Connect to "+name;
+        field = document.getElementById('connect-subtext');
+        field.innerHTML = "Cardigan will only share your data with "+name+".";
+      }
+
+      getData();
+
+    </script>
 </body>
 </html>
