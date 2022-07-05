@@ -168,7 +168,8 @@ p {
       var container;
       var options, data;
       var connections;
-      var maxConnections;
+      var connectionLimit;
+      var connectionCount;
       var nodeCounter;
       var loopCounter;
       var timeHours;
@@ -187,9 +188,11 @@ p {
         nodes = new vis.DataSet();
         edges = new vis.DataSet();
 
-        maxConnections = 10;
+        connectionCount = [];
+
+        connectionLimit = 10;
         connections = [];
-        for(let i=0; i<maxConnections; i++) {
+        for(let i=0; i<connectionLimit; i++) {
           connections[i] = 0;
         }
 
@@ -250,6 +253,7 @@ p {
       }
 
       function addNode(group) {
+        connectionCount[connectionCount.length] = 0;
         nodes.add({"id": nodeCounter, "label": 0, "shape": "dot", "size": 15, "group":group});
         nodeCounter = nodeCounter + 1;
       }
@@ -258,6 +262,8 @@ p {
         var to = getRandomInt(nodeCounter-1)
         if(from != to) {
           edges.add({"from": from, "label": 1, "to": to, "weight": 1});
+
+          connectionCount[from] = connectionCount[from] + 1;
 
           var fromNode = nodes.get(from);
           if(fromNode.group == 3) {
@@ -279,17 +285,24 @@ p {
         }
 
         var totalConnections = 0;
-        for(let i=0; i<maxConnections; i++) {
+        for(let i=0; i<connectionLimit; i++) {
           totalConnections = totalConnections + (i+1) * connections[i];
         }
         var connectionsOver4 = 0;
-        for(let i=3; i<maxConnections; i++) {
+        for(let i=3; i<connectionLimit; i++) {
           connectionsOver4 = connectionsOver4 + connections[i];
+        }
+
+        var maxConnections = 0;
+        for(let i=0; i<connectionCount.length; i++) {
+          if(connectionCount[i] > maxConnections) {
+            maxConnections = connectionCount[i];
+          }
         }
 
         var field = document.getElementById('main-text');
         field.innerHTML = "Time: "+timeHours+":"+timeMinutePrefix+timeMinutes+
-                                                    " P.M.<br>New Connections: "+totalConnections+"<br>    1x1: "+connections[0]+"<br>    1x2: "+connections[1]+"<br>    1x3: "+connections[2]+"<br>    1x4+: "+connectionsOver4+"<br><span style=\"color: #ff0000\">Sales/marketing: </span>"+salesConnections+"<br><span style=\"color: #ffff00\">Service providers: </span>"+providerConnections+"<br><span style=\"color: #0000ff\">Technical: </span>"+techConnections;
+                " P.M.<br>New Connections: "+totalConnections+"<br>    1x1: "+connections[0]+"<br>    1x2: "+connections[1]+"<br>    1x3: "+connections[2]+"<br>    1x4+: "+connectionsOver4+"<br>Max connections: "+maxConnections+"<br><span style=\"color: #ff0000\">Sales/marketing: </span>"+salesConnections+"<br><span style=\"color: #ffff00\">Service providers: </span>"+providerConnections+"<br><span style=\"color: #0000ff\">Technical: </span>"+techConnections;
 
 
       }
