@@ -128,15 +128,6 @@
     </div>
     <script src="dist/js/main.min.js"></script>
     <script>
-      function getData() {
-        var url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT9ZBHxenn2SJ9JGbesfyqCkZWUvFE6RavZuNdd3KY7hn3yN_G8C5b-HhEr_wZ-1GscQbsXM8htbXax/pubhtml";
-
-      function showInfo(data) {
-        // data comes through as a simple array since simpleSheet is turned on
-        alert("Successfully processed " + data.length + " rows!")
-        console.log(data[0].linkID);
-        console.log(data);
-      }
 
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
