@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cardigan</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i|PT+Serif:700" rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+
+<style type="text/css">
+
+p {
+  color: black;
+}
+#event-container {
+  width: 80%;
+  height: 600px;
+  background-color: #ffffff;
+  border: 1px solid lightgray;
+  position: relative;
+}
+
+#event-network {
+  width: 66%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+}
+
+#event-dashboard {
+  width: 33%;
+  position: absolute;
+  text-align: left;
+  right: 0;
+}
+
+</style>
+
+</head>
+<body class="is-boxed has-animations">
+    <div class="body-wrap boxed-container">
+        <header class="site-header">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+                            <a href="#">
+                                <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <title>Cardigan</title>
+                                    <defs>
+                                        <radialGradient cy="0%" fx="50%" fy="0%" r="100%" id="logo-gradient">
+                                            <stop stop-color="#FFF" offset="0%"/>
+                                            <stop stop-color="#FFF" stop-opacity=".24" offset="100%"/>
+                                        </radialGradient>
+                                    </defs>
+                                    <path d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zm0-10a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" fill="url(#logo-gradient)" fill-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        </h1>
+                    </div>
+                    <ul class="header-links list-reset m-0">
+                        <li>
+                            <a href="#">Login</a>
+                        </li>
+                        <li>
+                            <a class="button button-sm button-shadow" href="#">Signup</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero text-light text-center">
+                <div class="container-sm">
+                    <div class="hero-inner">
+                        <h1 class="hero-title h2-mobile mt-0 is-revealing">New Connections</h1>
+                        <p class="hero-paragraph is-revealing">GMCC Annual Dinner 2022</p>
+
+
+                    </div>
+                </div>
+                <div class="container" id="event-container">
+                  <div class="hero-inner" id="event-network"></div>
+                  <div class="hero-inner" id="event-dashboard">
+                    <p id="main-text">Time: 5:00 P.M.</p>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="site-footer-inner">
+                    <div class="brand footer-brand">
+                        <a href="#">
+                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                <title>Cardigan</title>
+                                <defs>
+                                    <radialGradient cy="0%" fx="50%" fy="0%" r="100%" id="logo-gradient-footer">
+                                        <stop stop-color="#00A2B8" offset="0%"/>
+                                        <stop stop-color="#00F9D2" offset="100%"/>
+                                    </radialGradient>
+                                </defs>
+                                <path d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16-7.163 16-16 16zm0-10a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" fill="url(#logo-gradient-footer)" fill-rule="evenodd"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <ul class="footer-links list-reset">
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                        <li>
+                            <a href="#">About us</a>
+                        </li>
+                        <li>
+                            <a href="#">FAQ's</a>
+                        </li>
+                        <li>
+                            <a href="#">Support</a>
+                        </li>
+                    </ul>
+                    <ul class="footer-social-links list-reset">
+                        <li>
+                            <a href="#">
+                                <span class="screen-reader-text">Facebook</span>
+                                <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.023 16L6 9H3V6h3V4c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V6H13l-1 3H9.28v7H6.023z" fill="#0EB3CE"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="screen-reader-text">Twitter</span>
+                                <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16 3c-.6.3-1.2.4-1.9.5.7-.4 1.2-1 1.4-1.8-.6.4-1.3.6-2.1.8-.6-.6-1.5-1-2.4-1-1.7 0-3.2 1.5-3.2 3.3 0 .3 0 .5.1.7-2.7-.1-5.2-1.4-6.8-3.4-.3.5-.4 1-.4 1.7 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.5-.4C.7 7.7 1.8 9 3.3 9.3c-.3.1-.6.1-.9.1-.2 0-.4 0-.6-.1.4 1.3 1.6 2.3 3.1 2.3-1.1.9-2.5 1.4-4.1 1.4H0c1.5.9 3.2 1.5 5 1.5 6 0 9.3-5 9.3-9.3v-.4C15 4.3 15.6 3.7 16 3z" fill="#0EB3CE"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="screen-reader-text">Google</span>
+                                <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z" fill="#0EB3CE"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer-copyright">&copy; 2022 Cardigan, all rights reserved</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="dist/js/main.min.js"></script>
+
+    <script type="text/javascript">
+
+      // initialize global variables.
+      var edges;
+      var nodes;
+      var network; 
+      var container;
+      var options, data;
+      var connections;
+      var connectionLimit;
+      var connectionCount;
+      var nodeCounter;
+      var loopCounter;
+      var timeHours;
+      var timeMinutes;
+      var salesConnections;
+      var providerConnections;
+      var techConnections;
+
+      function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
+
+      function initializeNetwork() {
+        var container = document.getElementById('event-network');
+
+        nodes = new vis.DataSet();
+        edges = new vis.DataSet();
+
+        connectionCount = [];
+
+        connectionLimit = 10;
+        connections = [];
+        for(let i=0; i<connectionLimit; i++) {
+          connections[i] = 0;
+        }
+
+        nodeCounter = 0;
+        for (let i = 0; i < 70; i++) {
+          addNode(1);
+        }
+        for (let i = 0; i < 20; i++) {
+          addNode(2);
+        }
+        for (let i = 0; i < 10; i++) {
+          addNode(3);
+        }
+
+        salesConnections = 0;
+        providerConnections = 0;
+        techConnections = 0;
+
+        data = {nodes: nodes, edges: edges};
+        var options = {
+                      "configure": {
+                              "enabled": false
+                            },
+                      "edges": {
+                              "color": {
+                                      "inherit": true
+                                    },
+                              "smooth": {
+                                      "enabled": true,
+                                      "type": "dynamic"
+                                    }
+                            },
+                      "interaction": {
+                              "dragNodes": true,
+                              "hideEdgesOnDrag": false,
+                              "hideNodesOnDrag": false
+                            },
+                      "physics": {
+                              "enabled": true,
+                              "stabilization": {
+                                      "enabled": true,
+                                      "fit": true,
+                                      "iterations": 1000,
+                                      "onlyDynamicEdges": false,
+                                      "updateInterval": 50
+                                    }
+                            }
+                    };
+
+
+        network = new vis.Network(container, data, options);
+
+        return network;
+      }
+
+      function getRandomInt(max) {
+        return 1 + Math.floor(Math.random() * max);
+      }
+
+      function addNode(group) {
+        connectionCount[connectionCount.length] = 0;
+        nodes.add({"id": nodeCounter, "label": 0, "shape": "dot", "size": 15, "group":group});
+        nodeCounter = nodeCounter + 1;
+      }
+
+      function addEdgeFrom(from) {
+        var to = getRandomInt(nodeCounter-1)
+        if(from != to) {
+          edges.add({"from": from, "label": 1, "to": to, "weight": 1});
+
+          connectionCount[from] = connectionCount[from] + 1;
+
+          var fromNode = nodes.get(from);
+          if(fromNode.group == 3) {
+            salesConnections = salesConnections+1;
+          }
+          else if(fromNode.group == 2) {
+            providerConnections = providerConnections+1;
+          }
+          else if(fromNode.group == 1) {
+            techConnections = techConnections+1;
+          }
+        }
+      }
+
+      function updateDisplay() {
+        var timeMinutePrefix = ""
+        if(timeMinutes < 10) {
+          timeMinutePrefix = "0"
+        }
+
+        var totalConnections = 0;
+        for(let i=0; i<connectionLimit; i++) {
+          totalConnections = totalConnections + (i+1) * connections[i];
+        }
+        var connectionsOver4 = 0;
+        for(let i=3; i<connectionLimit; i++) {
+          connectionsOver4 = connectionsOver4 + connections[i];
+        }
+
+        var maxConnections = 0;
+        for(let i=0; i<connectionCount.length; i++) {
+          if(connectionCount[i] > maxConnections) {
+            maxConnections = connectionCount[i];
+          }
+        }
+
+        var field = document.getElementById('main-text');
+        field.innerHTML = "Time: "+timeHours+":"+timeMinutePrefix+timeMinutes+
+                " P.M.<br>New Connections: "+totalConnections+"<br>    1 to 1 connections: "+connections[0]+"<br>    1 to 2 connections: "+connections[1]+"<br>    1 to 3 connections: "+connections[2]+"<br>    1 to 4+ connections: "+connectionsOver4+"<br>Max connections: "+maxConnections+"<br><span style=\"color: #ff0000\">Sales/marketing: </span>"+salesConnections+"<br><span style=\"color: #cccc00\">Service providers: </span>"+providerConnections+"<br><span style=\"color: #0000ff\">Technical: </span>"+techConnections;
+
+
+      }
+
+      function incrementNetwork() {
+        if(loopCounter > 11) {
+          return;
+        }
+
+        timeMinutes = timeMinutes + 5;
+        if(timeMinutes > 59) {
+          timeMinutes = 0;
+          timeHours = timeHours + 1;
+        }
+        loopCounter = loopCounter + 1;
+        for(let nodeIndex = 0; nodeIndex < nodeCounter; nodeIndex++) {
+          var node = nodes.get(nodeIndex);
+          var prob = 3;
+          var maxNumEdges = 1;
+          if(node.group == 2) {
+            prob = 7;
+            maxNumEdges = 2;
+          }
+          else if(node.group == 3) {
+            prob = 10;
+            maxNumEdges = 4;
+          }
+
+          if(getRandomInt(100) < prob) {
+            var numEdges = getRandomInt(maxNumEdges);
+            var from = getRandomInt(nodeCounter-1)
+            connections[numEdges-1] = connections[numEdges-1] + 1;
+            for (let i = 0; i < numEdges; i++) {
+                addEdgeFrom(nodeIndex);
+            }
+          }
+        }
+        updateDisplay();
+        delayThenIncrement();
+      }
+
+      function delayThenIncrement() {
+        console.log('delayThenIncrement()')
+        delay(2000).then(() => incrementNetwork());
+      }
+
+      timeHours = 5;
+      timeMinutes = 0;
+
+      initializeNetwork();
+
+
+      loopCounter = 0;
+      delayThenIncrement();
+
+    </script>
+
+</body>
+</html>
