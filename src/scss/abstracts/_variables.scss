@@ -21,13 +21,13 @@ $color: (
 		3: #007585,
  	),
  	secondary: (
-		1: #D8D8D8,
+		1: #90B0D2,
 		2: #00F9D2,
 		3: #00937C
  	),
  	additional: (
-		1: #00C6A7,
-		2: #518ECD
+		1: #518ECD,
+		2: #106bc7
  	)
 );
 
@@ -35,8 +35,8 @@ $color: (
 // Typography ---------------------------------
 // --------------------------------------------
 $font__family: (
-	base: '"Lato", sans-serif', // font-family(base)
-	heading: '"PT Serif", serif', // font-family(heading)
+	base: '"Product Sans", "OpenSans", sans-serif', // font-family(base)
+	heading: '"Product Sans", "OpenSans", sans-serif', // font-family(heading)
 	code: 'Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace', // font-family(code)
 	pre: '"Courier 10 Pitch", Courier, monospace' // font-family(pre)
 );

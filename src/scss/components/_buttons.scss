@@ -12,7 +12,7 @@
     text-decoration: none !important;
     background-color: color(bg, 1);
     color: color(primary, 1) !important;
-    border: none;
+    border: 2px white;
     border-radius: 2px;
     cursor: pointer;
     justify-content: center;
@@ -80,7 +80,6 @@
 
 .button-primary {
     background: mix(color(primary, 1), color(primary, 2));
-    background: linear-gradient(65deg, color(primary, 1) -25%, color(primary, 2) 100%);
 
     &:hover {
         background: lighten(mix(color(primary, 1), color(primary, 2)), .5%);
@@ -89,12 +88,12 @@
 }
 
 .button-secondary {
-    background: mix(color(primary, 1), color(secondary, 2));
-    background: linear-gradient(65deg, color(primary, 1) -25%, color(secondary, 2) 100%);
+    background: color(additional, 1);
+    border: 5px;
+    border-color: white;
 
     &:hover {
-        background: lighten(mix(color(primary, 1), color(secondary, 2)), .5%);
-        background: linear-gradient(65deg, lighten(color(primary, 1), .5%) -25%, lighten(color(secondary, 2), .5%) 100%);
+        background: lighten(color(additional, 1), .5%);
     }
 }
 
